@@ -1,0 +1,10 @@
+echo "---- Compiling processor ----"
+rm -rf target
+mkdir -p target/lib
+mkdir -p target/classes/processor
+mkdir -p target/classes/main
+javac -source 1.8 -target 1.8 -d target/classes/processor -Xdoclint:all,-missing -verbose  src/main/java/Processor.java
+jar cvf target/lib/processor.jar -C target/classes/processor . -C src/main/resources .
+echo ""
+echo "---- Compiling class with processor ----"
+javac -source 1.8 -target 1.8 -d target/classes/main -classpath target/lib/processor.jar -Xdoclint:all,-missing -verbose  src/main/java/Utils.java
